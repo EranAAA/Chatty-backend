@@ -7,9 +7,11 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 
 const logger = require('./services/logger.service')
+
 const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
 const cardRoutes = require('./api/card/card.routes')
+
 const { setupSocketAPI } = require('./services/socket.service')
 
 // Express App Config

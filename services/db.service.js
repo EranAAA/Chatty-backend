@@ -4,11 +4,12 @@ var config;
 if (process.env.NODE_ENV === 'production') {
    config = { 'dbURL': 'mongodb+srv://eran:7O1ETPJi6o6lPXz4@cluster0.ek0xl.mongodb.net/?retryWrites=true&w=majority' }
 } else {
-   config = { 'dbURL': 'mongodb://localhost:27017' }
+   // config = { 'dbURL': 'mongodb://localhost:27017' }
+   config = { 'dbURL': 'mongodb+srv://eran:7O1ETPJi6o6lPXz4@cluster0.ek0xl.mongodb.net/?retryWrites=true&w=majority' }
 }
 
 // Database Name
-const dbName = 'card_db'
+const dbName = 'chatty_db'
 var dbConn = null
 
 async function getCollection(collectionName) {
