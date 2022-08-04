@@ -10,32 +10,26 @@ async function login(email, password) {
    logger.debug(`auth.service - login with email: ${email}`)
 
    const user = await userService.getByEmail(email)
-
-   console.log('user', user);
-   console.log('email', email);
-
    if (!user) return Promise.reject('Invalid email or password')
    const match = await bcrypt.compare(password, user.password)
-if (password === user.password) console.log('TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-   console.log('match', typeof password, typeof user.password);
-   console.log('match', match);
-
    if (!match) return Promise.reject('Invalid email or password')
+   
    console.log('Successful login')
 
    delete user.password
    return user
 }
 
-async function signup(email, password, fullname) {
+async function signup(email, password, username) {
    const saltRounds = 10
 
-   logger.debug(`auth.service - signup with email: ${email}, fullname: ${fullname}`)
-   if (!email || !password || !fullname)
-      return Promise.reject('fullname, email and password are required!')
+   logger.debug(`auth.service - signup with email: ${email}, username: ${username}`)
+
+   if (!email || !password || !username)
+      return Promise.reject('username, email and password are required!')
 
    const hash = await bcrypt.hash(password, saltRounds)
-   return userService.add({ email, password: hash, fullname })
+   return userService.add({ email, password: hash, username })
 }
 
 function getLoginToken(user) {

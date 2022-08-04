@@ -66,7 +66,7 @@ async function update(user) {
       const userToSave = {
          _id: ObjectId(user._id),
          email: user.email,
-         fullname: user.fullname
+         username: user.username
       }
       const collection = await dbService.getCollection('user')
       console.log('user', user);
@@ -81,11 +81,14 @@ async function update(user) {
 async function add(user) {
    try {
       const userToAdd = {
+         username: user.username,
          email: user.email,
          password: user.password,
-         fullname: user.fullname,
-         imgURL: '',
-         isAdmin: false
+         friends: [],
+         msgId: [],
+         isAdmin: false,
+         isOnline: false,
+         imgUrl: '',
       }
       const collection = await dbService.getCollection('user')
       await collection.insertOne(userToAdd)
@@ -105,7 +108,7 @@ function _buildCriteria(filterBy) {
             email: txtCriteria
          },
          {
-            fullname: txtCriteria
+            username: txtCriteria
          }
       ]
    }
