@@ -6,7 +6,7 @@ const ObjectId = require('mongodb').ObjectId
 module.exports = {
    query,
    getById,
-   getByUsername,
+   getByEmail,
    remove,
    update,
    add
@@ -40,13 +40,13 @@ async function getById(userId) {
       throw err
    }
 }
-async function getByUsername(username) {
+async function getByEmail(email) {
    try {
       const collection = await dbService.getCollection('user')
-      const user = await collection.findOne({ username })
+      const user = await collection.findOne({ email })
       return user
    } catch (err) {
-      logger.error(`while finding user ${username}`, err)
+      logger.error(`while finding user ${email}`, err)
       throw err
    }
 }
@@ -65,7 +65,7 @@ async function update(user) {
    try {
       const userToSave = {
          _id: ObjectId(user._id),
-         username: user.username,
+         email: user.email,
          fullname: user.fullname
       }
       const collection = await dbService.getCollection('user')
@@ -81,7 +81,7 @@ async function update(user) {
 async function add(user) {
    try {
       const userToAdd = {
-         username: user.username,
+         email: user.email,
          password: user.password,
          fullname: user.fullname,
          imgURL: '',
@@ -102,7 +102,7 @@ function _buildCriteria(filterBy) {
       const txtCriteria = { $regex: filterBy.txt, $options: 'i' }
       criteria.$or = [
          {
-            username: txtCriteria
+            email: txtCriteria
          },
          {
             fullname: txtCriteria
