@@ -10,7 +10,7 @@ const logger = require('./services/logger.service')
 
 const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
-const cardRoutes = require('./api/card/card.routes')
+const chatRoutes = require('./api/chat/chat.routes')
 
 const { setupSocketAPI } = require('./services/socket.service')
 
@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
-app.use('/api/card', cardRoutes)
+app.use('/api/chat', chatRoutes)
 
 setupSocketAPI(http)
 
