@@ -49,7 +49,8 @@ async function updateChat(req, res) {
    try {
       const chat = req.body
       const updatedChat = await chatService.update(chat)
-      res.json(updatedChat)
+      res.send(updatedChat)
+      // res.json(updatedChat)
    } catch (err) {
       logger.error('Failed to update chat', err)
       res.status(500).send({ err: 'Failed to update chat' })

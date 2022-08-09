@@ -17,7 +17,7 @@ async function query(userID) {
       // const criteriaSort = _buildCriteriaSort(filterBy)
       const collection = await dbService.getCollection('chat')
 
-      var chats = await collection
+      let chats = await collection
          .find( { users: { $in: [ ObjectId(userID) ]} } )
          .toArray()
       return chats
@@ -62,7 +62,9 @@ async function add(chat) {
 
 async function update(chat) {
    try {
-      var id = ObjectId(chat._id)
+      const users = chat.users.map(user => ObjectId(user))
+      chat.users = users
+      let id = ObjectId(chat._id)
       delete chat._id
       const collection = await dbService.getCollection('chat')
       await collection.updateOne({ _id: id }, { $set: { ...chat } })
